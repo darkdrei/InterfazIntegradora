@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica.db;
+package logica.data;
 
 /**
  *
  * @author dark
  */
-public class BaseDAO {
+public class BaseDao {
     
 }
