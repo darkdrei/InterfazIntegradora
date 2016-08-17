@@ -5,10 +5,17 @@
  */
 package logica.data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author dark
  */
-public interface PersistenDAO {
-    
+public interface DAO{
+    public void insertObject(Object o);
+    public ArrayList<Object> listObjects();
+    public Object[][] matrizObjects();
+    public boolean validObject(Object o);
+    public void updateObject(int id, Object o);
+    public void eraseObject(int id);
 }
