@@ -9,6 +9,6 @@ package logica.data;
  *
  * @author dark
  */
-public class BaseDao {
+public class BaseDAO {
     
 }

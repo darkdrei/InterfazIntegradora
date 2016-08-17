@@ -9,6 +9,6 @@ package logica.data;
  *
  * @author dark
  */
-public interface PersistenDao {
+public interface PersistenDAO {
     
 }
