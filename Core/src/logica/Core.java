@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -88,6 +89,20 @@ public class Core
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+
+        });
+        
+        JMenuItem Lista = new JMenuItem("Lista de Componentes");
+        componente.add(Lista);
+       
+        Lista.addActionListener(new ActionListener() {
+            private int count = 0;
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 JDialog vista = new ListaComponentes(Core.this, true);
+                 vista.setVisible(true);
             }
 
         });

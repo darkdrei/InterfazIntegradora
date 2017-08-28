@@ -39,15 +39,22 @@ public class CargarArchivoArbol extends CButton {
     DefaultMutableTreeNode carpetaRaiz = new DefaultMutableTreeNode("Carpeta");
     DefaultTreeModel modelo = new DefaultTreeModel(carpetaRaiz);
     private ArrayList<DesArbol> nodos = new ArrayList<>();
-
+    OSValidator os;
+    
     public CargarArchivoArbol(CodePanel panel) {
         this.panel = panel;
         setText("Abrir archivo");
         setTooltip("Cargado de archivo");
         Image image = null;
+        
         try {
-            File sourceimage = new File("src/ima/copy.png");
-            image = ImageIO.read(sourceimage);
+            if(os.getOS().equals("win")){
+                File sourceimage = new File("src\\ima\\copy.png");
+                image = ImageIO.read(sourceimage);
+            }else{
+                File sourceimage = new File("src/ima/copy.png");
+                image = ImageIO.read(sourceimage);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,9 +67,15 @@ public class CargarArchivoArbol extends CButton {
         setText("Abrir archivo");
         setTooltip("Cargado de archivo");
         Image image = null;
+
         try {
-            File sourceimage = new File("src/ima/copy.png");
-            image = ImageIO.read(sourceimage);
+            if(os.getOS().equals("win")){
+                File sourceimage = new File("src\\ima\\copy.png");
+                image = ImageIO.read(sourceimage);
+            }else{
+                File sourceimage = new File("src/ima/copy.png");
+                image = ImageIO.read(sourceimage);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
