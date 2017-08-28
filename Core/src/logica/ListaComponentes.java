@@ -8,13 +8,17 @@ package logica;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author exile
  */
 public class ListaComponentes extends javax.swing.JDialog implements ActionListener {
-
+    
+    Object [][] data = null;
+    String[] columNames = new String[3];
+    
     /**
      * Creates new form NewJDialog
      */
@@ -22,12 +26,22 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        listaDeComponentes();
     }
     
-    public void listaDeComponentes(ArrayList Componentes){
-        
+    private void listaDeComponentes(){
+        columNames = new String[] {"Activado", "Nombre", "Descripción"};
+        data = new Object[10][3];
+        for (int i = 0; i < 10; i++) {
+            data[i][0] = false;
+            data[i][1] = "test";
+            data[i][2] = "desc";
+        }
+        TablaComponentes.setModel(new DefaultTableModel(data, columNames));
     }
-
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +53,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaComplementos = new javax.swing.JTable();
+        TablaComponentes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         TextInformacion = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
@@ -49,8 +63,8 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 
         jPanel2.setBackground(new java.awt.Color(228, 228, 228));
 
-        TablaComplementos.setBorder(null);
-        TablaComplementos.setModel(new javax.swing.table.DefaultTableModel(
+        TablaComponentes.setBorder(null);
+        TablaComponentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -75,8 +89,8 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
                 return canEdit [columnIndex];
             }
         });
-        TablaComplementos.setToolTipText("");
-        jScrollPane1.setViewportView(TablaComplementos);
+        TablaComponentes.setToolTipText("");
+        jScrollPane1.setViewportView(TablaComponentes);
 
         TextInformacion.setColumns(20);
         TextInformacion.setRows(5);
@@ -133,7 +147,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TablaComplementos;
+    private javax.swing.JTable TablaComponentes;
     private javax.swing.JTextArea TextInformacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
@@ -145,4 +159,5 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }
