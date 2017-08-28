@@ -46,7 +46,7 @@ public class CargarArchivoArbol extends CButton {
         setTooltip("Cargado de archivo");
         Image image = null;
         try {
-            File sourceimage = new File("/home/dark/NetBeansProjects/tesis-final/src/data/tutorial/icons/copy.png");
+            File sourceimage = new File("src/ima/copy.png");
             image = ImageIO.read(sourceimage);
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class CargarArchivoArbol extends CButton {
         setTooltip("Cargado de archivo");
         Image image = null;
         try {
-            File sourceimage = new File("/home/dark/NetBeansProjects/tesis-final/src/data/tutorial/icons/copy.png");
+            File sourceimage = new File("src/ima/copy.png");
             image = ImageIO.read(sourceimage);
         } catch (IOException e) {
             e.printStackTrace();
