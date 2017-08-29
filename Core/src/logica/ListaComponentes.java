@@ -102,6 +102,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         String columnName = model.getColumnName(column);
         Object data = model.getValueAt(row, column);
         System.out.println(data);
+        JOptionPane.showMessageDialog(TablaComponentes, data);
 //        ...// Do something with the data...
     }
     
