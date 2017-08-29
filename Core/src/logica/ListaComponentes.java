@@ -5,20 +5,35 @@
  */
 package logica;
 
+import core.LectorXml;
+import core.ListComponenXml;
+import core.ValidXml;
+import core.WriteComponenXml;
+import core.Xml;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.text.TabableView;
 
 /**
  *
  * @author exile
  */
-public class ListaComponentes extends javax.swing.JDialog implements ActionListener {
+public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener{
     
     Object [][] data = null;
     String[] columNames = new String[3];
-    
+    LectorXml l = new LectorXml();
+    ValidXml vxml = new ValidXml();
+    OSValidator os;
+    ListComponenXml list = new ListComponenXml();
+
     /**
      * Creates new form NewJDialog
      */
@@ -27,19 +42,68 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         initComponents();
         setLocationRelativeTo(parent);
         listaDeComponentes();
+        TextInformacion.setEditable(false);
     }
     
     private void listaDeComponentes(){
-        columNames = new String[] {"Activado", "Nombre", "Descripción"};
-        data = new Object[10][3];
-        for (int i = 0; i < 10; i++) {
-            data[i][0] = false;
-            data[i][1] = "test";
-            data[i][2] = "desc";
+        columNames = new String[] {"Activado", "Nombre", "Descripción", "Versión"};
+        String path = "";
+        if (os.getOS().equals("win")) {
+            path = "src\\configuracion\\xml_configuracion.xml";
+        }else{
+            path = "src/configuracion/xml_configuracion.xml";
         }
-        TablaComponentes.setModel(new DefaultTableModel(data, columNames));
+        boolean exisFile = vxml.exisFile(path);
+        boolean validExtencion = vxml.validExtencion(path);
+        
+        if (exisFile & validExtencion) {
+            //WriteComponenXml componen = new WriteComponenXml();
+            //componen.writeFile(path,l.getXml());
+            list.loadingFile(path);
+            list.readNodeFile();
+            data = new Object[list.getXmls().size()][4];
+            System.out.println(list.getXmls().size());
+            System.out.println(list.getXmls());
+            for (Xml x : list.getXmls()) {
+                data[list.getXmls().indexOf(x)][0] = Boolean.TRUE;
+                data[list.getXmls().indexOf(x)][1] = x.getAutor().getNombre();
+                data[list.getXmls().indexOf(x)][2] = x.getAutor().getDescripcion();
+                data[list.getXmls().indexOf(x)][3] = x.getAutor().getVersion();
+            }
+
+        }else{
+            JDialog d = new JDialog();
+            d.setTitle("El archivo de configuracion ha sido alterado");
+            d.setVisible(true);
+        }
+        TablaComponentes.setModel(new DefaultTableModel(data, columNames){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                if(column == 0){
+                    return true;
+                }
+                return false;  
+            }
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                return getValueAt(0, columnIndex).getClass();
+            }
+        });
+        
+        TablaComponentes.getModel().addTableModelListener(this);
     }
     
+    @Override
+    public void tableChanged(TableModelEvent e) {
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+        TableModel model;
+        model = (TableModel)e.getSource();
+        String columnName = model.getColumnName(column);
+        Object data = model.getValueAt(row, column);
+        System.out.println(data);
+//        ...// Do something with the data...
+    }
     
     
     /**
@@ -90,6 +154,11 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             }
         });
         TablaComponentes.setToolTipText("");
+        TablaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaComponentesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaComponentes);
 
         TextInformacion.setColumns(20);
@@ -104,14 +173,11 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -119,12 +185,13 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 3, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addContainerGap())
         );
 
@@ -141,6 +208,18 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TablaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaComponentesMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = TablaComponentes.getSelectedRow();
+        
+        String t = "Nombre: "+ list.getXmls().get(selectedRow).getAutor().getNombre() + "\n" 
+                + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
+                + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
+                + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
+        TextInformacion.setText(t);
+      
+    }//GEN-LAST:event_TablaComponentesMouseClicked
 
     /**
      * @param args the command line arguments
