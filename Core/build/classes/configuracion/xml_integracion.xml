@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pluguin>
+	<autor>	
+		<nombre>Agreado</nombre>
+		<descripcion>Eso es lo q hay</descripcion>
+		<version>4.1</version>
+	</autor>
+	<cuerpo>
+		<tipo  columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd"></tipo>
+		<claseprincipal></claseprincipal>
+		<parametro>
+			<String>hola</String>
+			<float>valido</float>
+			<int>num</int>
+		</parametro>
+	</cuerpo>
+</pluguin>
