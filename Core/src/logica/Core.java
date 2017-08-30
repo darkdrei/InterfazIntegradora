@@ -17,11 +17,13 @@ import bibliothek.gui.dock.common.DefaultSingleCDockable;
 import bibliothek.gui.dock.common.action.CAction;
 import bibliothek.gui.dock.common.intern.CDockable;
 import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -29,6 +31,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -46,12 +50,29 @@ public class Core
     public CargarArchivoArbol cargador_de_archivo;
 
     public static void main(String[] args)
-            throws InstantiationException, IllegalAccessException {
+            throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
         DockController.disableCoreWarning();
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         Core readme = new Core();
         readme.setDefaultCloseOperation(3);
-        readme.setBounds(20, 20, 800, 600);
+        readme.setSize(800, 600);
+        readme.setLocationRelativeTo(null);
+        OSValidator os = new OSValidator();
+        String path = "";
+        if (os.getOS().equals("win")) {
+            path = "src\\ima\\icono.png";
+        } else {
+            path = "src/ima/icono.png";
+        }
+        try {
+            Thread.sleep(2000);
+            Image image = new ImageIcon(path).getImage();
+            readme.setIconImage(image);
+        } catch (Exception e) {
+
+        }
+
         readme.setVisible(true);
     }
 
@@ -77,7 +98,7 @@ public class Core
         JMenu componente = new JMenu("Componentes");
         menubar.add(componente);
 
-        JMenu help = new JMenu("Help");
+        JMenu help = new JMenu("Ayuda");
         menubar.add(help);
         JMenuItem acercade = new JMenuItem("Acerca de");
         help.add(acercade);
@@ -92,17 +113,17 @@ public class Core
             }
 
         });
-        
+
         JMenuItem Lista = new JMenuItem("Lista de Componentes");
         componente.add(Lista);
-       
+
         Lista.addActionListener(new ActionListener() {
             private int count = 0;
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                 JDialog vista = new ListaComponentes(Core.this, true);
-                 vista.setVisible(true);
+                JDialog vista = new ListaComponentes(Core.this, true);
+                vista.setVisible(true);
             }
 
         });

@@ -9,14 +9,19 @@
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/core/OperacionFIle.java</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/configuracion/xml_configuracion.xml</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/CargarArchivoArbol.java</file>
+            <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/Lector.java</file>
+            <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/Zip.java</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/ListaComponentes.java</file>
+            <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/ima/inversa.png</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/recursos/xml_integracion</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/core/WriteComponenXml.java</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/configuracion/xml_integracion.xml</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/core/Xml.java</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/LectorArchivo.java</file>
+            <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/manifest.mf</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/recursos/test_integracion</file>
             <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/core/ListComponenXml.java</file>
+            <file>file:/home/exile/Documentos/github/java/InterfazIntegradora/Core/src/logica/CopyCodeAction.java</file>
         </group>
     </open-files>
 </project-private>
