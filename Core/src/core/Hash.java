@@ -29,13 +29,11 @@ public class Hash {
             md.update(password.getBytes());
             byte[] mb = md.digest();
             System.out.println(Hex.encodeHex(mb));
-            
             //SHA-1
             md= MessageDigest.getInstance("SHA-1");
             md.update(password.getBytes());
             mb = md.digest();
-            System.out.println(Hex.encodeHex(mb));
-            
+            System.out.println(Hex.encodeHex(mb)); 
             //MD5
             md= MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
