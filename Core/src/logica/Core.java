@@ -165,20 +165,18 @@ public class Core
         //listDockable.addAction(new CopyCodeAction(this.currentCode));
         cargador_de_archivo = new CargarArchivoArbol(this);
         listDockable.addAction(cargador_de_archivo);
-        tree.addTreeSelectionListener(new TreeSelectionListener() {
-            public void valueChanged(TreeSelectionEvent e) {
-                TreePath path = tree.getSelectionPath();
-                System.err.println(path.toString());
-                System.err.println(path.getPathComponent(path.getPath().length - 1).toString());
-                System.out.println("COnponente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
-                DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
-                try {
-                    if (cargador_de_archivo.validarExistencia(desc.getNombre())) {
-                        currentCode.setCode(cargador_de_archivo.producirContenido(desc));
-                    }
-                } catch (NullPointerException er) {
-                    currentCode.setCode("");
+        tree.addTreeSelectionListener((TreeSelectionEvent e) -> {
+            TreePath path = tree.getSelectionPath();
+            System.err.println(path.toString());
+            System.err.println(path.getPathComponent(path.getPath().length - 1).toString());
+            System.out.println("COnponente es .... " + path.getPathComponent(path.getPath().length - 1).toString());
+            DesArbol desc = cargador_de_archivo.getNodo(path.getPathComponent(path.getPath().length - 1).toString());
+            try {
+                if (cargador_de_archivo.validarExistencia(desc.getNombre())) {
+                    currentCode.setCode(cargador_de_archivo.producirContenido(desc));
                 }
+            } catch (NullPointerException er) {
+                currentCode.setCode("");
             }
         });
         layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
