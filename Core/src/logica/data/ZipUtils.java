@@ -7,7 +7,7 @@ package logica.data;
 
 /**
  *
- * @author dark
+ * @author Esta clase es tomada de stackoverflow
  */
 import java.io.BufferedOutputStream;
 import java.io.File;
