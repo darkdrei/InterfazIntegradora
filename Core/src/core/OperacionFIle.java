@@ -20,5 +20,5 @@ public interface OperacionFIle {
     public void writeFile();
     public void writeFile(String ruta);
     public void writeFile(String ruta, Xml xml);
-        
+    public void readFile(Xml xml);
 }
