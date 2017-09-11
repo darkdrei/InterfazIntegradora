@@ -94,8 +94,7 @@ public class Xml implements Cloneable{
         @Override
         public String toString() {
             return "Autor{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", version=" + version + '}';
-        }
-        
+        }        
         
 
     }
@@ -161,8 +160,24 @@ public class Xml implements Cloneable{
 
     @Override
     public String toString() {
-        return "Xml{" + "autor=" + autor + ", cuerpo=" + cuerpo + '}';
+        String info = "";
+        info+="\n ------ Autor ------";
+        info+="\nNombre  : "+this.getAutor().getNombre();
+        info+="\nVersion : "+this.getAutor().getVersion();
+        info+="\nDescripcion : ";
+        info+="\n"+this.getAutor().getDescripcion();
+        info+="\n";
+        info+="\nClase principal : ";
+        info+="\n"+this.getCuerpo().getMain();
+        info+="\n";
+        info+="\n*** Parametros : ";
+        for ( String s : this.getParametros()){
+            info+="\n\t"+s;
+        }
+        info+="\n*** Tipos de datos de muestra : ";
+        for ( String s : this.getCuerpo().getTipo_datos()){
+            info+="\n\t"+s;
+        }
+        return info;
     }
-    
-    
 }
