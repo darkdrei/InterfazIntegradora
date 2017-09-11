@@ -6,15 +6,20 @@
 package logica;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystem;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+import logica.data.ZipUtils;
 
 /**
  * Esta clase encarga de las operaciones de manipulacion de el archivo Zip
@@ -27,7 +32,7 @@ public class Zip implements Lector {
     private String ruta_entrada;
     private String ruta_salida;
     private int size_buffer;
-    
+
     private Vector<Contenido> files;
 
     public Zip() {
@@ -51,10 +56,10 @@ public class Zip implements Lector {
     public void setZf(ZipFile zf) {
         this.zf = zf;
     }
-    
-    public File getContenidoTipo(int i){
+
+    public File getContenidoTipo(int i) {
         for (Contenido file : files) {
-            if (file.getTipo() == i){
+            if (file.getTipo() == i) {
                 try {
                     return file.mostrarArchivo();
                 } catch (IOException ex) {
@@ -64,7 +69,7 @@ public class Zip implements Lector {
         }
         return null;
     }
-    
+
     public Vector<Contenido> getFiles() {
         return files;
     }
@@ -72,12 +77,12 @@ public class Zip implements Lector {
     public void setFiles(Vector<Contenido> files) {
         this.files = files;
     }
-    
-    public int getFilesContenido(){
+
+    public int getFilesContenido() {
         return this.getFiles().size();
     }
-    
-    public Contenido getContenidoFiles(int p){
+
+    public Contenido getContenidoFiles(int p) {
         return getFiles().get(p);
     }
 
@@ -117,24 +122,20 @@ public class Zip implements Lector {
 
     @Override
     public File[] getFiles(File f) {
-        ZipFile file = null;
-        try {
-            file = new ZipFile(f);
-            Enumeration<? extends ZipEntry> entries = file.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry entry = entries.nextElement();
-                this.getFiles().add(new Contenido(entry, file.getInputStream(entry)));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Zip.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                file.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Zip.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        OSValidator os = new OSValidator();
+        String path = "";
+        if (os.getOS().equals("win")) {
+            path = "C://Interfaz//temporal";
+        } else {
+            path = "/home/dark/proyectos/aaaaa";
         }
-        return null;
+        File folder = new File(path);
+        System.out.println("Esto es lo q hay ---> " + folder.exists());
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        ZipUtils.extract(f, folder);
+        return folder.listFiles();
     }
 
     @Override
@@ -162,7 +163,7 @@ public class Zip implements Lector {
 
     @Override
     public void getsFiles(File f) {
-        System.out.println("este es el archivo "+f);
+        System.out.println("este es el archivo " + f);
         ZipFile file = null;
         try {
             file = new ZipFile(f);
@@ -170,8 +171,8 @@ public class Zip implements Lector {
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
                 System.err.println(entry);
-                System.out.println("Esta es el tipo de archivo : "+(entry.getName().split("\\.")[1])+" "+((entry.getName().split("\\.")[1]).equals("jar")));
-                files.add(new Contenido(entry, file.getInputStream(entry), (entry.getName().split("\\.")[1]).equals("jar")?2:1));
+                System.out.println("Esta es el tipo de archivo : " + (entry.getName().split("\\.")[1]) + " " + ((entry.getName().split("\\.")[1]).equals("jar")));
+                files.add(new Contenido(entry, file.getInputStream(entry), (entry.getName().split("\\.")[1]).equals("jar") ? 2 : 1));
             }
         } catch (IOException ex) {
             Logger.getLogger(Zip.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,22 +190,24 @@ public class Zip implements Lector {
         ZipFile file = null;
         try {
             file = new ZipFile(f);
-            if(file.getName().split("\\.")[1] != "zip"){
-                return new java.lang.Object[]{false,"El modulo que desea cargar no es zip"};
+            if (!file.getName().split("\\.")[1].toUpperCase().equals("ZIP")) {
+                return new java.lang.Object[]{false, "El modulo debe ser ZIP."};
             }
-            if (file.stream().count() != 2){
-                return new java.lang.Object[]{false,"El modulo debe estar compuesto por 2 archivos."};
+            if (file.stream().count() != 2) {
+                return new java.lang.Object[]{false, "El modulo debe estar compuesto por 2 archivos."};
             }
             Enumeration<? extends ZipEntry> entries = file.entries();
-            int c=0;
-            String res ="";
+            int c = 0;
+            String res = "";
             while (entries.hasMoreElements()) {
                 ZipEntry entry = entries.nextElement();
-                c+= entry.getName().split("\\.")[1]=="xml"?1:2;
-                res+="\n"+entry.getName().split("\\.")[1];
+                System.out.println(">>>===>> " + entry.toString().split("\\.")[1].equals("jar") + "   " + (entry.toString().split("\\.")[1].equals("xml") || entry.toString().split("\\.")[1] == "jar"));
+                c += entry.getName().split("\\.")[1].equals("xml") || entry.getName().split("\\.")[1].equals("jar") ? 1 : 0;
+                res += "\n" + entry.getName().split("\\.")[1];
             }
-            if(c != 2)
-                return new java.lang.Object[]{false,"El modulo debe estar compuesto por 2 archivos.\nEl existente solo contiene : "+res};
+            if (c != 2) {
+                return new java.lang.Object[]{false, "El modulo debe estar compuesto por 2 archivos.\nEl existente solo contiene : " + res};
+            }
             return new java.lang.Object[]{true};
         } catch (IOException ex) {
             Logger.getLogger(Zip.class.getName()).log(Level.SEVERE, null, ex);
@@ -215,7 +218,7 @@ public class Zip implements Lector {
                 Logger.getLogger(Zip.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return new java.lang.Object[]{false,"Error en el archivo."};
+        return new java.lang.Object[]{false, "Error en el archivo."};
     }
 
     public class Contenido {
@@ -223,35 +226,34 @@ public class Zip implements Lector {
         private ZipEntry file_respuesta;
         private InputStream file_existente;
         private int tipo;
-        
-        
+
         public File mostrarArchivo() throws IOException {
-        String exractedFile =  "/home/dark/Escritorio/Desde-Java/temporal" +file_respuesta.getName();
-        FileOutputStream fos = null;
+            String exractedFile = "/home/dark/Escritorio/Desde-Java/temporal" + file_respuesta.getName();
+            FileOutputStream fos = null;
 
-        try {
-            fos = new FileOutputStream(exractedFile);
-            final byte[] buf = new byte[getSize_buffer()];
-            int read = 0;
-            int length;
+            try {
+                fos = new FileOutputStream(exractedFile);
+                final byte[] buf = new byte[getSize_buffer()];
+                int read = 0;
+                int length;
 
-            while ((length = file_existente.read(buf, 0, buf.length)) >= 0) {
-                fos.write(buf, 0, length);
+                while ((length = file_existente.read(buf, 0, buf.length)) >= 0) {
+                    fos.write(buf, 0, length);
+                }
+
+            } catch (IOException ioex) {
+                fos.close();
             }
-
-        } catch (IOException ioex) {
-            fos.close();
+            return new File(exractedFile);
         }
-        return new File(exractedFile);
-    }
-
 
         public Contenido(ZipEntry file_respuesta, InputStream file_existente) {
             this.file_respuesta = file_respuesta;
             this.file_existente = file_existente;
         }
+
         /**
-         * 
+         *
          * @param file_respuesta : ruta de carpeta donde se colocara el archivo
          * @param file_existente : ruta del archivo actualmente
          * @param p : tipo de archivo sea jar ó xml, 1 xml y 2 jar
