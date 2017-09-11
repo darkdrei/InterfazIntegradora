@@ -6,8 +6,18 @@
 package logica.data;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.util.Arrays;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 /**
  *
@@ -18,9 +28,31 @@ public class pactica {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        FileOutputStream fos = null;
+//        try {
         // TODO code application logic here
-        ZipUtils.extract(new File("/home/dark/proyectos/Modulos_test/Modulo1.zip") , new File("/home/dark/Escritorio/Desde-Java"));
+        File folder = new File("/home/dark/proyectos/aaaaa");
+            System.out.println("Esto es lo q hay ---> " + folder.exists());
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            fos = new FileOutputStream("/home/dark/proyectos/Modulos_test/Modulo1.zip");
+            ZipInputStream zis = new ZipInputStream(new FileInputStream("/home/dark/proyectos/Modulos_test/Modulo1.zip"));
+            //get the zipped file list entry
+            ZipEntry ze = zis.getNextEntry();
+
+
+            zis.closeEntry();
+            zis.close();
+            ZipUtils.extract(new File("/home/dark/proyectos/Modulos_test/Modulo1.zip"),new File("/home/dark/proyectos/aaaaa"));
+            System.out.println("Esto es lo q hay ---> " + folder.exists());
+            System.out.println("Esto es lo q hay ---> " + folder.isDirectory());
+
+//        System.out.println("Esto es lo q hay ---> " + folder.delete());
+        deleteTemporal(folder);
+        System.out.println("Esto es lo q hay ---> " + folder.exists());
+        // ZipUtils.extract(new File("/home/dark/proyectos/Modulos_test/Modulo1.zip") , new File("/home/dark/Escritorio/Desde-Java"));
 //        Vector<Integer> t = new Vector<>();
 //        t.add(1);
 //        t.add(1);
@@ -50,18 +82,24 @@ public class pactica {
 //                System.err.println(r1);
 //            }
 //        }
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(pactica.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                fos.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(pactica.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
     }
-    
-    
-    public static Object[] getvector(int x){
-        if (x== 1){
-            return new String[]{"dssdsd","dssdsd","dssdsd","dssdsd","dssdsd","dssdsd"};
-        }else  if (x== 2){
-            System.err.println("entro en 2");
-            return new Integer[]{1,1,1,1,1,1,2,1,1};
-        }else  if (x== 3){
-            return new Boolean[]{true,false,true,false,true};
+
+    public static void deleteTemporal(File element) {
+        if (element.isDirectory()) {
+            for (File sub : element.listFiles()) {
+                deleteTemporal(sub);
+            }
         }
-        return null;
+        element.delete();
     }
+
 }

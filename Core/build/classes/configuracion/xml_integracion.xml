@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pluguin>
 	<autor>	
-		<nombre>Agreado</nombre>
+		<nombre></nombre>
 		<descripcion>Eso es lo q hay</descripcion>
 		<version>4.1</version>
 	</autor>
@@ -9,9 +9,9 @@
 		<tipo  columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd"></tipo>
 		<claseprincipal></claseprincipal>
 		<parametro>
-			<String>hola</String>
-			<float>valido</float>
-			<int>num</int>
+			<String></String>
+			<float></float>
+			<int></int>
 		</parametro>
 	</cuerpo>
 </pluguin>

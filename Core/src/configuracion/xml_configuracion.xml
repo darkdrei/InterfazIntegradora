@@ -136,4 +136,72 @@
       </parametro>
     </cuerpo>
   </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion>Eso es lo q hay</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion>Eso es lo q hay</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion>Eso es lo q hay</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion>Eso es lo q hay</descripcion>
+      <version>4.1</version>
+    </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
+  </pluguin>
 </listado>
