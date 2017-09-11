@@ -15,4 +15,5 @@ public interface Validacion {
     public boolean exisFile(String ruta);
     public boolean validExtencion(File f);
     public boolean validExtencion(String f);
+    public boolean validEstructura(File xml);
 }
