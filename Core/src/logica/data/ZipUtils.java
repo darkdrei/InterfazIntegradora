@@ -26,8 +26,9 @@ public class ZipUtils
     byte[] buffer = new byte[BUFFER_SIZE];
     BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(outdir,name)));
     int count = -1;
-    while ((count = in.read(buffer)) != -1)
+    while ((count = in.read(buffer)) != -1){
       out.write(buffer, 0, count);
+    }
     out.close();
   }
 
