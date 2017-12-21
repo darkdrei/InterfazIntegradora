@@ -214,16 +214,6 @@ public class Core
         this.tree = tree;
     }
 
-    private Set<Extension> loadExtensions() {
-        Set<Extension> set = new HashSet();
-        try {
-            Class<?> clazz = Class.forName("TutorialToolbarExtension");
-            set.add((Extension) clazz.newInstance());
-        } catch (Exception e) {
-        }
-        return set;
-    }
-
     private void select(ModelTree.Node node) {
         if (node == null) {
             this.currentSelection.set(null, null, null, null);
