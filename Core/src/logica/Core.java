@@ -175,23 +175,6 @@ public class Core
          * **********************************************************************
          */
 
-        /*final JTree tutorialsTree = new JTree(new ModelTree(RootSet.class, loadExtensions()));
-         tutorialsTree.getSelectionModel().setSelectionMode(0);
-         tutorialsTree.setShowsRootHandles(true);
-         tutorialsTree.setRootVisible(false);
-         tutorialsTree.addTreeSelectionListener(new TreeSelectionListener()
-         {
-         public void valueChanged(TreeSelectionEvent e)
-         {
-         TreePath path = tutorialsTree.getSelectionPath();
-         if (path == null) {
-         Core.this.select(null);
-         } else {
-         Core.this.select((ModelTree.Node)path.getLastPathComponent());
-         }
-         }
-         });
-         tutorialsTree.setSelectionRow(0);*/
         DefaultSingleCDockable listDockable = new DefaultSingleCDockable("list", "Tutorials", new CAction[0]);
         listDockable.setLayout(new BorderLayout());
         //listDockable.add(new JScrollPane(tutorialsTree), "Center");
@@ -221,7 +204,6 @@ public class Core
         /**
          * * CARGAR EN CODE **
          */
-
     }
 
     public JTree getTree() {
