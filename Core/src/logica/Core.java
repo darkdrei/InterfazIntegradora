@@ -47,8 +47,14 @@ public class Core
     private CodePanel currentCode;
     private LectorArchivo lector_archivo;
     private JTree tree;
+    private DefaultSingleCDockable lectorSeleccionDockable;
+    private CGrid layout;
     public CargarArchivoArbol cargador_de_archivo;
+     
+    public CControl control;
+    
 
+        
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
         DockController.disableCoreWarning();
@@ -79,11 +85,10 @@ public class Core
     public Core()
             throws InstantiationException, IllegalAccessException {
         setTitle("Interfaz - Integradora");
-
-        CControl control = new CControl(this);
-        control.setTheme("eclipse");
-        add(control.getContentArea());
-
+        
+        this.control= new CControl(this);
+        this.control.setTheme("eclipse");
+        add(this.control.getContentArea());
         /*
          Agregar Menu
          */
@@ -109,7 +114,7 @@ public class Core
 
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                lectorVisible();
             }
 
         });
@@ -131,18 +136,19 @@ public class Core
          * **************************************
          */
 
-        CGrid layout = new CGrid(control);
+        this.layout = new CGrid(control);
 
         /**
          * **********************************************************************
          */
         /*                  CODIGFO DE CARGADO DE ARCHIVO                        */
         lector_archivo = new LectorArchivo();
-        DefaultSingleCDockable lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Selection");
-        lectorSeleccionDockable.setLayout(new BorderLayout());
-        lectorSeleccionDockable.add(lector_archivo, BorderLayout.CENTER);
-        lectorSeleccionDockable.setCloseable(false);
-        layout.add(30, 0, 70, 100, lectorSeleccionDockable);
+        this.lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Selection");
+        this.lectorSeleccionDockable.setLayout(new BorderLayout());
+        this.lectorSeleccionDockable.add(lector_archivo, BorderLayout.CENTER);
+        this.lectorSeleccionDockable.setCloseable(true);
+        this.layout.add(30, 0, 70, 100, this.lectorSeleccionDockable);
+
         /**
          * **********************************************************************
          */
@@ -151,7 +157,7 @@ public class Core
         currentSelectionDockable.setLayout(new BorderLayout());
         currentSelectionDockable.add(this.currentSelection, "Center");
         currentSelectionDockable.setCloseable(false);
-        //layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[] { currentSelectionDockable });
+        // layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[] { currentSelectionDockable });
 
         this.currentCode = new CodePanel();
         DefaultSingleCDockable currentCodeDockable = new DefaultSingleCDockable("code", "Code", new CAction[0]);
@@ -161,7 +167,7 @@ public class Core
         if (!control.getController().isRestrictedEnvironment()) {
             currentCodeDockable.addAction(new CopyCodeAction(this.currentCode));
         }
-        layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable});
+        this.layout.add(30.0D, 0.0D, 70.0D, 100.0D, new CDockable[]{currentCodeDockable});
         //layout.select(30.0D, 0.0D, 70.0D, 100.0D, currentSelectionDockable);
         /**
          * **********************************************************************
@@ -198,10 +204,10 @@ public class Core
                 currentCode.setCode("");
             }
         });
-        layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
-
-        control.getContentArea().deploy(layout);
-        /**
+        this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
+        
+        control.getContentArea().deploy(this.layout);
+        /** 
          * * CARGAR EN CODE **
          */
     }
@@ -210,6 +216,12 @@ public class Core
         return tree;
     }
 
+    public void lectorVisible() {
+        // this.lectorSeleccionDockable.setVisible(true);
+        layout.select(30, 0, 70, 100, lectorSeleccionDockable);
+        control.getContentArea().deploy(layout);
+    }
+    
     public void setTree(JTree tree) {
         this.tree = tree;
     }
