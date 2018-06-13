@@ -18,11 +18,11 @@ import org.jdom2.JDOMException;
  *
  * @author dark
  */
-public class ListComponenXml extends ComponenXml{
-    
+public class ListComponenXml extends ComponenXml {
+
     private ArrayList<Xml> xmls;
-    
-     public ListComponenXml() {
+
+    public ListComponenXml() {
         super();
         xmls = new ArrayList<>();
     }
@@ -34,9 +34,9 @@ public class ListComponenXml extends ComponenXml{
             this.setRootNode(this.getDocument().getRootElement());
             List list = (List) this.getRootNode().getChildren();
             for (Object object : list) {
-                Element tem = (Element)object;
+                Element tem = (Element) object;
                 this.setXml(new Xml());
-                for(Element ob:tem.getChildren()){
+                for (Element ob : tem.getChildren()) {
                     System.out.println(ob.getName());
                     if (ob.getName().equalsIgnoreCase("autor")) {
                         try {
@@ -54,6 +54,12 @@ public class ListComponenXml extends ComponenXml{
                         } catch (NullPointerException r) {
                             this.getXml().getAutor().setVersion("");
                         }
+                    } else if (ob.getName().equalsIgnoreCase("status")) {
+                        try {
+                            this.getXml().getStatus().setActive(Boolean.valueOf(ob.getAttribute("active").getValue()));
+                        } catch (Exception e) {
+                            this.getXml().getStatus().setActive(true);
+                        }
                     } else if (ob.getName().equalsIgnoreCase("cuerpo")) {
                         try {
                             Element tipo = ob.getChild("tipo");
@@ -62,7 +68,7 @@ public class ListComponenXml extends ComponenXml{
                         } catch (NullPointerException r) {
                             this.getXml().getCuerpo().setColumnas(0);
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
-                        }catch(NumberFormatException n){
+                        } catch (NumberFormatException n) {
                             this.getXml().getCuerpo().setColumnas(0);
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
                         }
@@ -74,8 +80,8 @@ public class ListComponenXml extends ComponenXml{
                         }
                         ArrayList<String> parametros = new ArrayList<>();
                         try {
-                            System.out.println("***************  "+ob.getChild("parametro"));
-                            Element param= ob.getChild("parametro");
+                            System.out.println("***************  " + ob.getChild("parametro"));
+                            Element param = ob.getChild("parametro");
                             for (Element e : param.getChildren()) {
                                 System.out.println(e.getName());
                                 try {
@@ -87,7 +93,7 @@ public class ListComponenXml extends ComponenXml{
                             }
                         } catch (NullPointerException r) {
 
-                        }finally{
+                        } finally {
                             this.getXml().getCuerpo().setParametros(parametros);
                         }
                     }
@@ -101,17 +107,17 @@ public class ListComponenXml extends ComponenXml{
             Logger.getLogger(LectorXml.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
-    public void readFile(Xml xml){
+    public void readFile(Xml xml) {
         try {
             this.setDocument((Document) this.getBuilder().build(this.getFile()));
             this.setRootNode(this.getDocument().getRootElement());
             List list = (List) this.getRootNode().getChildren();
             for (Object object : list) {
-                Element tem = (Element)object;
+                Element tem = (Element) object;
                 this.setXml(new Xml());
-                for(Element ob:tem.getChildren()){
+                for (Element ob : tem.getChildren()) {
                     System.out.println(ob.getName());
                     if (ob.getName().equalsIgnoreCase("autor")) {
                         try {
@@ -129,6 +135,12 @@ public class ListComponenXml extends ComponenXml{
                         } catch (NullPointerException r) {
                             this.getXml().getAutor().setVersion("");
                         }
+                    } else if (ob.getName().equalsIgnoreCase("status")) {
+                        try {                            
+                            this.getXml().getStatus().setActive(Boolean.valueOf(ob.getAttribute("active").getValue()));
+                        } catch (Exception e) {
+                            this.getXml().getStatus().setActive(true);
+                        }
                     } else if (ob.getName().equalsIgnoreCase("cuerpo")) {
                         try {
                             Element tipo = ob.getChild("tipo");
@@ -137,7 +149,7 @@ public class ListComponenXml extends ComponenXml{
                         } catch (NullPointerException r) {
                             this.getXml().getCuerpo().setColumnas(0);
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
-                        }catch(NumberFormatException n){
+                        } catch (NumberFormatException n) {
                             this.getXml().getCuerpo().setColumnas(0);
                             this.getXml().getCuerpo().setTipo_datos(new String[]{});
                         }
@@ -149,8 +161,8 @@ public class ListComponenXml extends ComponenXml{
                         }
                         ArrayList<String> parametros = new ArrayList<>();
                         try {
-                            System.out.println("***************  "+ob.getChild("parametro"));
-                            Element param= ob.getChild("parametro");
+                            System.out.println("***************  " + ob.getChild("parametro"));
+                            Element param = ob.getChild("parametro");
                             for (Element e : param.getChildren()) {
                                 System.out.println(e.getName());
                                 try {
@@ -162,7 +174,7 @@ public class ListComponenXml extends ComponenXml{
                             }
                         } catch (NullPointerException r) {
 
-                        }finally{
+                        } finally {
                             this.getXml().getCuerpo().setParametros(parametros);
                         }
                     }
@@ -176,10 +188,10 @@ public class ListComponenXml extends ComponenXml{
             Logger.getLogger(LectorXml.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void extraerInformacion() {
-        
+
     }
 
     public ArrayList<Xml> getXmls() {
@@ -189,6 +201,30 @@ public class ListComponenXml extends ComponenXml{
     public void setXmls(ArrayList<Xml> xmls) {
         this.xmls = xmls;
     }
-    
-    
+
+    @Override
+    public Xml getXmlById(int id) {
+        for (Xml x : this.getXmls()) {
+            if (x.getId() == id) {
+                return x;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean xmlExist(int id) {
+        for (Xml x : this.getXmls()) {
+            if (x.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void removeXml(Xml xml) {
+        this.getXmls().remove(xml);
+    }
+
 }

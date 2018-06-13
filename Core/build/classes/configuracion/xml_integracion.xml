@@ -5,6 +5,8 @@
 		<descripcion>Eso es lo q hay</descripcion>
 		<version>4.1</version>
 	</autor>
+        <status active="true">     
+        </status>
 	<cuerpo>
 		<tipo  columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd"></tipo>
 		<claseprincipal></claseprincipal>

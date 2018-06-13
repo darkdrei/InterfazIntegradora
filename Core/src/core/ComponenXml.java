@@ -14,7 +14,8 @@ import org.jdom2.input.SAXBuilder;
  *
  * @author dark
  */
-public class ComponenXml implements OperacionFIle{
+public class ComponenXml implements OperacionFIle, XmlInterface{
+
     private SAXBuilder builder;
     private File file;
     private Document document;
@@ -114,6 +115,21 @@ public class ComponenXml implements OperacionFIle{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void removeXml(Xml xml) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Xml getXmlById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public boolean xmlExist(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public String toString() {
         return xml.toString();

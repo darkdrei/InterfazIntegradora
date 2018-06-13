@@ -64,10 +64,12 @@ public class WriteComponenXml extends ComponenXml {
             autor.addContent(new Element("version").setText(xml.getAutor().getVersion()));
             Element cuerpo = new Element("cuerpo");
             Element tipo = new Element("tipo");
+            Element status = new Element("status");
             tipo.setAttribute("columnas", "" + xml.getCuerpo().getColumnas());
             tipo.setAttribute("tipodatocolumna", String.join(",", xml.getCuerpo().getTipo_datos()));
             cuerpo.addContent(tipo);
             tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
+            status.setAttribute("active", "true");
             Element parametro = new Element("parametro");
             for (String dato : xml.getCuerpo().getParametros()) {
                 parametro.addContent(new Element(dato));
@@ -75,6 +77,7 @@ public class WriteComponenXml extends ComponenXml {
             Element pluguin = new Element("pluguin");
             pluguin.addContent(autor);
             pluguin.addContent(cuerpo);
+            pluguin.addContent(status);
             this.getRootNode().addContent(pluguin);
             this.getDocument().setContent(this.getRootNode());
             writer = new FileWriter(ruta);
