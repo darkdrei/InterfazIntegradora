@@ -65,10 +65,11 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             System.out.println(list.getXmls().size());
             System.out.println(list.getXmls());
             for (Xml x : list.getXmls()) {
-                data[list.getXmls().indexOf(x)][0] = Boolean.TRUE;
+                data[list.getXmls().indexOf(x)][0] = x.getStatus().getActive();
                 data[list.getXmls().indexOf(x)][1] = x.getAutor().getNombre();
                 data[list.getXmls().indexOf(x)][2] = x.getAutor().getDescripcion();
                 data[list.getXmls().indexOf(x)][3] = x.getAutor().getVersion();
+                System.out.println("idXml "+ x.getId());
             }
 
         }else{
