@@ -68,6 +68,10 @@ public class Xml implements Cloneable{
     public void addParametro(String parametro){
         this.getCuerpo().getParametros().add(parametro);
     }
+
+    public void setStatus(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public class Autor{
         private String nombre;
@@ -179,6 +183,7 @@ public class Xml implements Cloneable{
     }
 
     public class Status{
+        
         private boolean active;
         
         public Status(boolean active) {
@@ -191,6 +196,11 @@ public class Xml implements Cloneable{
 
         public void setActive(boolean active) {
             this.active = active;
+        }
+        
+        @Override
+        public String toString() {
+            return "Status{" + "active=" + active + '}';
         }
 
      

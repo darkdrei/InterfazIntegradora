@@ -69,7 +69,7 @@ public class WriteComponenXml extends ComponenXml {
             tipo.setAttribute("tipodatocolumna", String.join(",", xml.getCuerpo().getTipo_datos()));
             cuerpo.addContent(tipo);
             tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
-            status.setAttribute("active", "true");
+            status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
             Element parametro = new Element("parametro");
             for (String dato : xml.getCuerpo().getParametros()) {
                 parametro.addContent(new Element(dato));

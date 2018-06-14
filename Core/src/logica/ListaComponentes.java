@@ -10,6 +10,7 @@ import core.ListComponenXml;
 import core.ValidXml;
 import core.WriteComponenXml;
 import core.Xml;
+import core.Xml.Status;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     ValidXml vxml = new ValidXml();
     OSValidator os;
     ListComponenXml list = new ListComponenXml();
+    String path = "";
 
     /**
      * Creates new form NewJDialog
@@ -47,7 +49,6 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     
     private void listaDeComponentes(){
         columNames = new String[] {"Activado", "Nombre", "Descripción", "Versión"};
-        String path = "";
         if (os.getOS().equals("win")) {
             path = "src\\configuracion\\xml_configuracion.xml";
         }else{
@@ -62,13 +63,13 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             list.loadingFile(path);
             list.readNodeFile();
             data = new Object[list.getXmls().size()][4];
-            System.out.println(list.getXmls().size());
-            System.out.println(list.getXmls());
+            
             for (Xml x : list.getXmls()) {
                 data[list.getXmls().indexOf(x)][0] = x.getStatus().getActive();
                 data[list.getXmls().indexOf(x)][1] = x.getAutor().getNombre();
                 data[list.getXmls().indexOf(x)][2] = x.getAutor().getDescripcion();
                 data[list.getXmls().indexOf(x)][3] = x.getAutor().getVersion();
+               
                 System.out.println("idXml "+ x.getId());
             }
 
@@ -98,12 +99,15 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
+
         TableModel model;
         model = (TableModel)e.getSource();
-        String columnName = model.getColumnName(column);
-        Object data = model.getValueAt(row, column);
-        System.out.println(data);
-        JOptionPane.showMessageDialog(TablaComponentes, data);
+        Object response = model.getValueAt(row, column);
+        Xml x =  list.getXmls().get(row);
+        x.getStatus().setActive(Boolean.valueOf(response.toString()));
+        WriteComponenXml wXml = new WriteComponenXml();
+        wXml.writeFile(path, x);
+        JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
 //        ...// Do something with the data...
     }
     
