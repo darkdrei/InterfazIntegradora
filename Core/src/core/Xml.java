@@ -6,7 +6,7 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -15,17 +15,37 @@ import java.util.Vector;
 public class Xml implements Cloneable{
     private Autor autor;
     private Cuerpo cuerpo;
-
-    public Xml(Autor autor, Cuerpo cuerpo) {
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private final int id;
+    private Status status;
+    
+    public Xml(Autor autor, Cuerpo cuerpo, Status status) {
         this.autor = autor;
         this.cuerpo = cuerpo;
+        this.id = count.incrementAndGet();
+        this.status =  status;
     }
     
     public Xml() {
         this.autor = new Autor();
         this.cuerpo = new Cuerpo();
+        this.id = count.incrementAndGet();
+        this.status = new Status(true);
     }
 
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+            
     public Autor getAutor() {
         return autor;
     }
@@ -47,6 +67,10 @@ public class Xml implements Cloneable{
     }
     public void addParametro(String parametro){
         this.getCuerpo().getParametros().add(parametro);
+    }
+
+    public void setStatus(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public class Autor{
@@ -158,9 +182,38 @@ public class Xml implements Cloneable{
         
     }
 
+    public class Status{
+        
+        private boolean active;
+        
+        public Status(boolean active) {
+            this.active = active;
+        }
+        
+        public boolean getActive() {
+            return active;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
+        }
+        
+        @Override
+        public String toString() {
+            return "Status{" + "active=" + active + '}';
+        }
+
+     
+    }
+    
+    public String toStringId(){
+        return "\n ------ Pluguin ---> "+this.getId();
+    }
+    
     @Override
     public String toString() {
         String info = "";
+        info+="\n ------ Pluguin ---> "+this.getId();
         info+="\n ------ Autor ------";
         info+="\nNombre  : "+this.getAutor().getNombre();
         info+="\nVersion : "+this.getAutor().getVersion();
@@ -169,6 +222,9 @@ public class Xml implements Cloneable{
         info+="\n";
         info+="\nClase principal : ";
         info+="\n"+this.getCuerpo().getMain();
+        info+="\n";
+        info+="\nEstatus";
+        info+="\n"+this.getStatus().getActive();
         info+="\n";
         info+="\n*** Parametros : ";
         for ( String s : this.getParametros()){

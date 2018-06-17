@@ -5,6 +5,7 @@
  */
 package core;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -54,27 +55,46 @@ public class WriteComponenXml extends ComponenXml {
                     Logger.getLogger(WriteComponenXml.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
+                String basePath = new File("").getAbsolutePath();
+                ruta = basePath + "/src/configuracion/xml_configuracion.xml";
+                if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                    ruta = basePath + "\\src\\configuracion\\xml_configuracion.xml";
+                }
+                Element root = new Element("listado");
+                Document doc = new Document();
+                doc.setRootElement(root);
+                XMLOutputter outter = new XMLOutputter();
+                outter.setFormat(Format.getPrettyFormat());
+                this.setFile(new File(ruta));
+                outter.output(doc, new FileWriter(this.getFile()));
+                FileInputStream fis = new FileInputStream(this.getFile());
+                setDocument(this.getBuilder().build(this.getFile()));
+                this.setRootNode(getDocument().detachRootElement());
                 this.setDocument(new Document());
                 this.setRootNode(new Element("listado"));
-            }   
+            }
             Element autor = new Element("autor");
-            System.out.println("  "+this.getDocument()+"   "+this.getRootNode());
+            System.out.println("  " + this.getDocument() + "   " + this.getRootNode());
             autor.addContent(new Element("nombre").setText(xml.getAutor().getNombre()));
             autor.addContent(new Element("descripcion").setText(xml.getAutor().getDescripcion()));
             autor.addContent(new Element("version").setText(xml.getAutor().getVersion()));
             Element cuerpo = new Element("cuerpo");
             Element tipo = new Element("tipo");
+            Element status = new Element("status");
             tipo.setAttribute("columnas", "" + xml.getCuerpo().getColumnas());
             tipo.setAttribute("tipodatocolumna", String.join(",", xml.getCuerpo().getTipo_datos()));
             cuerpo.addContent(tipo);
             tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
+            status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
             Element parametro = new Element("parametro");
             for (String dato : xml.getCuerpo().getParametros()) {
                 parametro.addContent(new Element(dato));
-            }   cuerpo.addContent(parametro);
+            }
+            cuerpo.addContent(parametro);
             Element pluguin = new Element("pluguin");
             pluguin.addContent(autor);
             pluguin.addContent(cuerpo);
+            pluguin.addContent(status);
             this.getRootNode().addContent(pluguin);
             this.getDocument().setContent(this.getRootNode());
             writer = new FileWriter(ruta);
@@ -85,8 +105,10 @@ public class WriteComponenXml extends ComponenXml {
             writer.close(); // close writer
         } catch (IOException ex) {
             Logger.getLogger(WriteComponenXml.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JDOMException ex) {
+            Logger.getLogger(WriteComponenXml.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-           
+
         }
     }
 
