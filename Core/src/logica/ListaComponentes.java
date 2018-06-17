@@ -11,14 +11,25 @@ import core.ValidXml;
 import core.WriteComponenXml;
 import core.Xml;
 import core.Xml.Status;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.text.TabableView;
 
@@ -26,10 +37,10 @@ import javax.swing.text.TabableView;
  *
  * @author exile
  */
-public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener{
-    
-    Object [][] data = null;
-    String[] columNames = new String[3];
+public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener {
+
+    Object[][] data = null;
+    String[] columNames = new String[4];
     LectorXml l = new LectorXml();
     ValidXml vxml = new ValidXml();
     OSValidator os;
@@ -46,64 +57,87 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         listaDeComponentes();
         TextInformacion.setEditable(false);
     }
-    
-    private void listaDeComponentes(){
-        columNames = new String[] {"Activado", "Nombre", "Descripción", "Versión"};
+
+    private void listaDeComponentes() {
+        columNames = new String[]{"Activado", "Nombre", "Descripción", "Versión"};
         if (os.getOS().equals("win")) {
             path = "src\\configuracion\\xml_configuracion.xml";
-        }else{
+        } else {
             path = "src/configuracion/xml_configuracion.xml";
         }
         boolean exisFile = vxml.exisFile(path);
         boolean validExtencion = vxml.validExtencion(path);
-        
+
         if (exisFile & validExtencion) {
             //WriteComponenXml componen = new WriteComponenXml();
             //componen.writeFile(path,l.getXml());
             list.loadingFile(path);
             list.readNodeFile();
-            data = new Object[list.getXmls().size()][4];
-            
+            data = new Object[list.getXmls().size()][5];
+
             for (Xml x : list.getXmls()) {
                 data[list.getXmls().indexOf(x)][0] = x.getStatus().getActive();
                 data[list.getXmls().indexOf(x)][1] = x.getAutor().getNombre();
                 data[list.getXmls().indexOf(x)][2] = x.getAutor().getDescripcion();
                 data[list.getXmls().indexOf(x)][3] = x.getAutor().getVersion();
-               
-                System.out.println("idXml "+ x.getId());
             }
 
-        }else{
+        } else {
             JDialog d = new JDialog();
             d.setTitle("El archivo de configuracion ha sido alterado");
             d.setVisible(true);
         }
-        TablaComponentes.setModel(new DefaultTableModel(data, columNames){
+
+        TablaComponentes.setModel(new DefaultTableModel(data, columNames) {
             @Override
-            public boolean isCellEditable(int row, int column){
-                if(column == 0){
-                    return true;
-                }
-                return false;  
+            public boolean isCellEditable(int row, int column) {
+                return column == 0;
             }
+            
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return getValueAt(0, columnIndex).getClass();
             }
+
         });
         
-        TablaComponentes.getModel().addTableModelListener(this);
+
+        TablaComponentes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            // do some actions here, for example
+            // print first column value from selected row
+            int selectedRow = TablaComponentes.getSelectedRow();
+            
+            String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
+                    + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
+                    + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
+                    + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
+            TextInformacion.setText(t);
+        });
+        
+//        ButtonColumn buttonColumn = new ButtonColumn(TablaComponentes, 4);
+        TableButton buttonEditor = new TableButton("Eliminar");
+        buttonEditor.addTableButtonListener((int row, int col) -> {
+            // do something
+            System.out.println(col+".tableButtonClicked()"+row);
+        });
+
+        TableColumn col = new TableColumn(1, 80);
+        col.setCellRenderer(buttonEditor);
+        col.setCellEditor(buttonEditor);
+        col.setHeaderValue("");
+     
+        TablaComponentes.addColumn(col);
     }
-    
+
     @Override
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
 
         TableModel model;
-        model = (TableModel)e.getSource();
+        model = (TableModel) e.getSource();
         Object response = model.getValueAt(row, column);
-        Xml x =  list.getXmls().get(row);
+        Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
         WriteComponenXml wXml = new WriteComponenXml();
         wXml.writeFile(path, x);
@@ -111,7 +145,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
 //        ...// Do something with the data...
     }
     
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,6 +172,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -160,11 +195,6 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             }
         });
         TablaComponentes.setToolTipText("");
-        TablaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TablaComponentesMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(TablaComponentes);
 
         TextInformacion.setColumns(20);
@@ -215,18 +245,6 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TablaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaComponentesMouseClicked
-        // TODO add your handling code here:
-        int selectedRow = TablaComponentes.getSelectedRow();
-        
-        String t = "Nombre: "+ list.getXmls().get(selectedRow).getAutor().getNombre() + "\n" 
-                + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
-                + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
-                + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
-        TextInformacion.setText(t);
-      
-    }//GEN-LAST:event_TablaComponentesMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -246,3 +264,4 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     }
 
 }
+
