@@ -206,9 +206,14 @@ public class Xml implements Cloneable{
      
     }
     
+    public String toStringId(){
+        return "\n ------ Pluguin ---> "+this.getId();
+    }
+    
     @Override
     public String toString() {
         String info = "";
+        info+="\n ------ Pluguin ---> "+this.getId();
         info+="\n ------ Autor ------";
         info+="\nNombre  : "+this.getAutor().getNombre();
         info+="\nVersion : "+this.getAutor().getVersion();

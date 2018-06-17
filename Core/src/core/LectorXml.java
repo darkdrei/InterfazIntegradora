@@ -32,6 +32,7 @@ public class LectorXml extends ComponenXml {
             this.setDocument((Document) this.getBuilder().build(this.getFile()));
             this.setRootNode(this.getDocument().getRootElement());
             List list = (List) this.getRootNode().getChildren();
+            
             for (Object object : list) {
                 Element ob = (Element) object;
                 System.out.println(ob.getName());

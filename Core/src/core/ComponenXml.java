@@ -6,8 +6,13 @@
 package core;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 /**
@@ -30,6 +35,15 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
         xml = new Xml();
     }
 
+    public ComponenXml(File f) {
+        this.builder = new SAXBuilder();
+        this.file = f;
+        this.document = null;
+        this.rootNode = null;
+        xml = new Xml();
+    }
+    
+
     @Override
     public File loadFile(String ruta) {
         return (new File(ruta));
@@ -38,6 +52,15 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
     @Override
     public void loadingFile(String ruta) {
         this.setFile(loadFile(ruta));
+        if(this.file.exists()){
+            try {
+                setDocument(this.getBuilder().build(this.file));
+            } catch (JDOMException ex) {
+                Logger.getLogger(ComponenXml.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ComponenXml.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     public SAXBuilder getBuilder() {
@@ -134,6 +157,29 @@ public class ComponenXml implements OperacionFIle, XmlInterface{
     public String toString() {
         return xml.toString();
     }
+
+    @Override
+    public void removeXml() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateFile(ArrayList<Xml> xmls) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    
+    @Override
+    public void updateFile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }  
+
+    @Override
+    public int getPositionXmlById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateFile(int position, Xml xml) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -5,75 +5,235 @@
  */
 package core;
 
-import java.util.List;
-import java.io.File;
-import java.io.IOException;
-import java.util.Vector;
-import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.Element;
-import org.jdom2.Document;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
  * @author dark
  */
-public class xml {
+public class Xml implements Cloneable{
+    private Autor autor;
+    private Cuerpo cuerpo;
+    private static final AtomicInteger count = new AtomicInteger(0);
+    private final int id;
+    private Status status;
+    
+    public Xml(Autor autor, Cuerpo cuerpo, Status status) {
+        this.autor = autor;
+        this.cuerpo = cuerpo;
+        this.id = count.incrementAndGet();
+        this.status =  status;
+    }
+    
+    public Xml() {
+        this.autor = new Autor();
+        this.cuerpo = new Cuerpo();
+        this.id = count.incrementAndGet();
+        this.status = new Status(true);
+    }
 
-    static Vector<String> atributos = new Vector<>();
-    static Vector<String> parametros = new Vector<>();
-    static Vector<String> descripcion = new Vector<>();
-    static Vector<String> cabecera = new Vector<>();
-    static String num_columnas = "";
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws JDOMException {
-        // TODO code application logic here
-        SAXBuilder builder = new SAXBuilder();
-        File xmlFile = new File("/home/dark/Escritorio/Desde-Java/estructura.xml");
-        System.err.println(xmlFile);
-        System.err.println(xmlFile.exists());
-        try {
-            Document document = (Document) builder.build(xmlFile);
-            Element rootNode = document.getRootElement();
-            List list = (List) rootNode.getChildren("configuracion");
-            extraerInformacion(list);
-            System.err.println(descripcion);
-            System.err.println(atributos);
-            System.out.println(num_columnas);
-            System.err.println(parametros);
-            System.err.println(cabecera);
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
             
-        } catch (IOException io) {
-            System.err.println("Se exploto 1");
-            System.out.println(io.getMessage());
-        } catch (JDOMException jdomex) {
-            System.err.println("Se exploto 2");
-            System.out.println(jdomex.getMessage());
-        }
+    public Autor getAutor() {
+        return autor;
     }
 
-    public static void extraerInformacion(List l) {
-        for (int i = 0; i < l.size(); i++) {
-            Element e = (Element) l.get(i);
-            if (e.getChildren().size() > 0) {
-                extraerInformacion(e.getChildren());
-            }else if (e.getName().equals("nombre") || e.getName().equals("descripcion") || e.getName().equals("version")){
-                System.err.println("valor de la etiqueta : "+e.getName());
-                descripcion.add(e.getText());
-            }else if(e.getName().equals("columnas")){
-                num_columnas = e.getText();
-            }else if(e.getName().equals("atributo")){
-                atributos.add(e.getText());
-            }else if(e.getName().equals("tipo")){
-                parametros.add(e.getText());
-            }else if(e.getName().equals("columna")){
-                cabecera.add(e.getText());
-            }
-        }
-
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 
+    public Cuerpo getCuerpo() {
+        return cuerpo;
+    }
+
+    public void setCuerpo(Cuerpo cuerpo) {
+        this.cuerpo = cuerpo;
+    }
+    
+    public ArrayList<String> getParametros(){
+        return this.getCuerpo().getParametros();
+    }
+    public void addParametro(String parametro){
+        this.getCuerpo().getParametros().add(parametro);
+    }
+
+    public void setStatus(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public class Autor{
+        private String nombre;
+        private String descripcion;
+        private String version;
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getDescripcion() {
+            return descripcion;
+        }
+
+        public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+        }
+
+        public String getVersion() {
+            return version;
+        }
+
+        public void setVersion(String version) {
+            this.version = version;
+        }
+
+        public Autor(String nombre, String descripcion, String version) {
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.version = version;
+        }
+        
+        public Autor() {
+            this.nombre = "";
+            this.descripcion = "";
+            this.version = "";
+        }
+        
+
+        @Override
+        public String toString() {
+            return "Autor{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", version=" + version + '}';
+        }        
+        
+
+    }
+    
+    public class Cuerpo{
+        private String[] tipo_datos;
+        private int columnas;
+        private ArrayList<String> parametros;
+        private String main;
+
+        public Cuerpo(String[] tipo_datos, int columnas, ArrayList<String> parametros, String main) {
+            this.tipo_datos = tipo_datos;
+            this.columnas = columnas;
+            this.parametros = parametros;
+            this.main = main;
+        }
+        
+        public Cuerpo() {
+            this.tipo_datos = new String[10];
+            this.columnas = 0;
+            this.parametros = new ArrayList<>();
+            this.main = "";
+        }
+
+        public String[] getTipo_datos() {
+            return tipo_datos;
+        }
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
+        }
+
+        public void setTipo_datos(String[] tipo_datos) {
+            this.tipo_datos = tipo_datos;
+        }
+
+        public int getColumnas() {
+            return columnas;
+        }
+
+        public void setColumnas(int columnas) {
+            this.columnas = columnas;
+        }
+
+        public ArrayList<String> getParametros() {
+            return parametros;
+        }
+
+        public void setParametros(ArrayList<String> parametros) {
+            this.parametros = parametros;
+        }
+
+        @Override
+        public String toString() {
+            return "Cuerpo{" + "tipo_datos=" + tipo_datos + ", columnas=" + columnas + ", parametros=" + parametros + '}';
+        } 
+        
+    }
+
+    public class Status{
+        
+        private boolean active;
+        
+        public Status(boolean active) {
+            this.active = active;
+        }
+        
+        public boolean getActive() {
+            return active;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
+        }
+        
+        @Override
+        public String toString() {
+            return "Status{" + "active=" + active + '}';
+        }
+
+     
+    }
+    
+    public String toStringId(){
+        return "\n ------ Pluguin ---> "+this.getId();
+    }
+    
+    @Override
+    public String toString() {
+        String info = "";
+        info+="\n ------ Pluguin ---> "+this.getId();
+        info+="\n ------ Autor ------";
+        info+="\nNombre  : "+this.getAutor().getNombre();
+        info+="\nVersion : "+this.getAutor().getVersion();
+        info+="\nDescripcion : ";
+        info+="\n"+this.getAutor().getDescripcion();
+        info+="\n";
+        info+="\nClase principal : ";
+        info+="\n"+this.getCuerpo().getMain();
+        info+="\n";
+        info+="\nEstatus";
+        info+="\n"+this.getStatus().getActive();
+        info+="\n";
+        info+="\n*** Parametros : ";
+        for ( String s : this.getParametros()){
+            info+="\n\t"+s;
+        }
+        info+="\n*** Tipos de datos de muestra : ";
+        for ( String s : this.getCuerpo().getTipo_datos()){
+            info+="\n\t"+s;
+        }
+        return info;
+    }
 }
