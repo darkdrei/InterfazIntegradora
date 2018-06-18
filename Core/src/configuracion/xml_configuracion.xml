@@ -6,7 +6,6 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
-    <status active="true" />
     <cuerpo>
       <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
         <claseprincipal />
@@ -17,6 +16,7 @@
         <int />
       </parametro>
     </cuerpo>
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -24,7 +24,6 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
-    <status active="true" />
     <cuerpo>
       <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
         <claseprincipal />
@@ -35,6 +34,7 @@
         <int />
       </parametro>
     </cuerpo>
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -42,7 +42,6 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
-    <status active="true" />
     <cuerpo>
       <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
         <claseprincipal />
@@ -53,6 +52,7 @@
         <int />
       </parametro>
     </cuerpo>
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -60,7 +60,6 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
-    <status active="true" />
     <cuerpo>
       <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
         <claseprincipal />
@@ -71,6 +70,7 @@
         <int />
       </parametro>
     </cuerpo>
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -78,7 +78,6 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
-    <status active="true" />
     <cuerpo>
       <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
         <claseprincipal />
@@ -89,6 +88,7 @@
         <int />
       </parametro>
     </cuerpo>
+    <status active="true" />
   </pluguin>
   <pluguin>
     <autor>
@@ -96,125 +96,17 @@
       <descripcion>Eso es lo q hay</descripcion>
       <version>4.1</version>
     </autor>
+    <cuerpo>
+      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+        <claseprincipal />
+      </tipo>
+      <parametro>
+        <String />
+        <float />
+        <int />
+      </parametro>
+    </cuerpo>
     <status active="true" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 7</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="true" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 8</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="true" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="true" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="true" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="false" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre />
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <status active="false" />
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
   </pluguin>
   <pluguin>
     <autor>
@@ -232,42 +124,6 @@
         <int />
       </parametro>
     </cuerpo>
-    <status active="false" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 8</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="false" />
-  </pluguin>
-  <pluguin>
-    <autor>
-      <nombre>Test 7</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
-    </autor>
-    <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
-        <claseprincipal />
-      </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
-    </cuerpo>
-    <status active="false" />
+    <status active="true" />
   </pluguin>
 </listado>

@@ -6,6 +6,7 @@
 package core;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +23,12 @@ public interface XmlInterface {
     public void writeFile(String ruta, Xml xml);
     public void readFile(Xml xml);
     public void removeXml(Xml xml);
+    public void removeXml();
+    public void updateFile(ArrayList<Xml> xmls);
+    public void updateFile(int position, Xml xml);
+    public void updateFile();
     public Xml getXmlById(int id);
+    public int getPositionXmlById(int id);
     public boolean xmlExist(int id);
 }
 

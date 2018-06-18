@@ -5,6 +5,8 @@
  */
 package core;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.logging.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 /**
  *
@@ -136,7 +140,7 @@ public class ListComponenXml extends ComponenXml {
                             this.getXml().getAutor().setVersion("");
                         }
                     } else if (ob.getName().equalsIgnoreCase("status")) {
-                        try {                            
+                        try {
                             this.getXml().getStatus().setActive(Boolean.valueOf(ob.getAttribute("active").getValue()));
                         } catch (Exception e) {
                             this.getXml().getStatus().setActive(true);
@@ -211,7 +215,19 @@ public class ListComponenXml extends ComponenXml {
         }
         return null;
     }
-
+    
+    @Override
+    public int getPositionXmlById(int id) {
+        int i=0;
+        for (Xml x : this.getXmls()) {
+            if (x.getId() == id) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+    
     @Override
     public boolean xmlExist(int id) {
         for (Xml x : this.getXmls()) {
@@ -227,4 +243,63 @@ public class ListComponenXml extends ComponenXml {
         this.getXmls().remove(xml);
     }
 
+    @Override
+    public void removeXml() {
+        this.updateFile();
+    }
+
+    @Override
+    public void updateFile(ArrayList<Xml> xmls) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void updateFile(int position, Xml xml){
+        this.getXmls().set(position, xml);
+        this.updateFile();
+    }
+
+
+    @Override
+    public void updateFile() {
+        try {
+            Element root = new Element("listado");
+            Document document = new Document();
+            for (Xml xml : this.getXmls()) {
+                Element autor = new Element("autor");
+                autor.addContent(new Element("nombre").setText(xml.getAutor().getNombre()));
+                autor.addContent(new Element("descripcion").setText(xml.getAutor().getDescripcion()));
+                autor.addContent(new Element("version").setText(xml.getAutor().getVersion()));
+                Element cuerpo = new Element("cuerpo");
+                Element tipo = new Element("tipo");
+                Element status = new Element("status");
+                tipo.setAttribute("columnas", "" + xml.getCuerpo().getColumnas());
+                tipo.setAttribute("tipodatocolumna", String.join(",", xml.getCuerpo().getTipo_datos()));
+                cuerpo.addContent(tipo);
+                tipo.addContent(new Element("claseprincipal").setText(xml.getCuerpo().getMain()));
+                status.setAttribute("active", String.valueOf(xml.getStatus().getActive()));
+                Element parametro = new Element("parametro");
+                for (String dato : xml.getCuerpo().getParametros()) {
+                    parametro.addContent(new Element(dato));
+                }
+                cuerpo.addContent(parametro);
+                Element pluguin = new Element("pluguin");
+                pluguin.addContent(autor);
+                pluguin.addContent(cuerpo);
+                pluguin.addContent(status);
+                root.addContent(pluguin);
+            };
+            document.setRootElement(root);
+            XMLOutputter outter = new XMLOutputter();
+            outter.setFormat(Format.getPrettyFormat());
+            String basePath = new File("").getAbsolutePath();
+            String ruta = basePath + "/src/configuracion/xml_configuracion.xml";
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                ruta = basePath + "\\src\\configuracion\\xml_configuracion.xml";
+            }
+            outter.output(document, new FileWriter(new File(ruta)));
+        } catch (IOException ex) {
+            Logger.getLogger(ListComponenXml.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

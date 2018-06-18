@@ -29,6 +29,15 @@ public class test {
         list.loadingFile("src/configuracion/xml_configuracion.xml");
         list.readNodeFile();
         System.out.println(list.getXmls().size());
+        for(Xml xml:list.getXmls()){
+            System.out.println(xml.toString());
+        }//Test 7
+        Xml get_xml = list.getXmlById(10);
+        System.out.println("---------------////////////////---------------");
+        System.out.println("Total element --> "+list.getXmls().size());
+        list.removeXml(get_xml);
+        System.out.println("Total element --> "+list.getXmls().size());
+        list.removeXml();
     }
     
 }
