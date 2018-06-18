@@ -255,6 +255,7 @@ public class ListComponenXml extends ComponenXml {
     
     @Override
     public void updateFile(int position, Xml xml){
+        System.out.println("position "+position+"Xml "+xml);
         this.getXmls().set(position, xml);
         this.updateFile();
     }

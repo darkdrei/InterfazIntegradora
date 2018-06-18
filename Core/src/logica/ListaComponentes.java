@@ -37,7 +37,7 @@ import javax.swing.text.TabableView;
  *
  * @author exile
  */
-public class ListaComponentes extends javax.swing.JDialog implements ActionListener, TableModelListener {
+public class ListaComponentes extends javax.swing.JDialog implements  TableModelListener {
 
     Object[][] data = null;
     String[] columNames = new String[4];
@@ -56,6 +56,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         setLocationRelativeTo(parent);
         listaDeComponentes();
         TextInformacion.setEditable(false);
+        TablaComponentes.getModel().addTableModelListener(this);
     }
 
     private void listaDeComponentes() {
@@ -105,6 +106,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         TablaComponentes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             // do some actions here, for example
             // print first column value from selected row
+            
             int selectedRow = TablaComponentes.getSelectedRow();
             
             String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
@@ -114,6 +116,7 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
             TextInformacion.setText(t);
         });
         
+     
 //        ButtonColumn buttonColumn = new ButtonColumn(TablaComponentes, 4);
         TableButton buttonEditor = new TableButton("Eliminar");
         buttonEditor.addTableButtonListener((int row, int col) -> {
@@ -139,12 +142,12 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
         Object response = model.getValueAt(row, column);
         Xml x = list.getXmls().get(row);
         x.getStatus().setActive(Boolean.valueOf(response.toString()));
-        WriteComponenXml wXml = new WriteComponenXml();
-        wXml.writeFile(path, x);
-        JOptionPane.showMessageDialog(TablaComponentes, list.getXmls().get(row).getStatus());
+        list.updateFile(row, x);
+        String status = x.getStatus().getActive() ? "Activado" : "Desactivadado";
+        JOptionPane.showMessageDialog(TablaComponentes,  "Componente "+status);
 //        ...// Do something with the data...
     }
-    
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -257,11 +260,6 @@ public class ListaComponentes extends javax.swing.JDialog implements ActionListe
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 }
 
