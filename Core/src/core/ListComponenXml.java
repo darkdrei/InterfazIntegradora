@@ -241,6 +241,7 @@ public class ListComponenXml extends ComponenXml {
     @Override
     public void removeXml(Xml xml) {
         this.getXmls().remove(xml);
+        this.updateFile();
     }
 
     @Override

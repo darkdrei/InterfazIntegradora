@@ -19,6 +19,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -37,7 +38,7 @@ import javax.swing.text.TabableView;
  *
  * @author exile
  */
-public class ListaComponentes extends javax.swing.JDialog implements  TableModelListener {
+public class ListaComponentes extends javax.swing.JDialog implements TableModelListener {
 
     Object[][] data = null;
     String[] columNames = new String[4];
@@ -46,6 +47,7 @@ public class ListaComponentes extends javax.swing.JDialog implements  TableModel
     OSValidator os;
     ListComponenXml list = new ListComponenXml();
     String path = "";
+    JButton button = new JButton("Eliminar");
 
     /**
      * Creates new form NewJDialog
@@ -94,35 +96,49 @@ public class ListaComponentes extends javax.swing.JDialog implements  TableModel
             public boolean isCellEditable(int row, int column) {
                 return column == 0;
             }
-            
+
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 return getValueAt(0, columnIndex).getClass();
             }
 
         });
-        
 
-        TablaComponentes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            // do some actions here, for example
-            // print first column value from selected row
-            
-            int selectedRow = TablaComponentes.getSelectedRow();
-            
-            String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
-                    + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
-                    + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
-                    + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
-            TextInformacion.setText(t);
+        TablaComponentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = TablaComponentes.rowAtPoint(evt.getPoint());
+                int col = TablaComponentes.columnAtPoint(evt.getPoint());
+                System.out.println(row + "------" + col);
+                if (col == 4) {
+                    String message = "Esta seguro que desea eliminar este componente?";
+                    boolean delete = showModal(message);
+                    if (delete) {
+                       Xml x = list.getXmls().get(row);
+                       // Remove Xml from file
+                       list.removeXml(x);
+                       // Remove row from table
+                       DefaultTableModel model = (DefaultTableModel)TablaComponentes.getModel();
+                       model.removeRow(row);
+                    }
+                   
+                }else {
+                    showComponenInformation();
+                }
+            }
         });
-        
-     
-//        ButtonColumn buttonColumn = new ButtonColumn(TablaComponentes, 4);
+
         TableButton buttonEditor = new TableButton("Eliminar");
-        buttonEditor.addTableButtonListener((int row, int col) -> {
-            // do something
-            System.out.println(col+".tableButtonClicked()"+row);
-        });
+//        buttonEditor.addActionListener(new ActionListener() {
+//                
+//            @Override
+//            public void actionPerformed(ActionEvent event)
+//
+//            {
+//
+//                System.out.print("dddddd");
+//            }
+//        });
 
         TableColumn col = new TableColumn(1, 80);
         col.setCellRenderer(buttonEditor);
@@ -134,21 +150,36 @@ public class ListaComponentes extends javax.swing.JDialog implements  TableModel
 
     @Override
     public void tableChanged(TableModelEvent e) {
-        int row = e.getFirstRow();
-        int column = e.getColumn();
+        if ( e.getType() == 0) {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
 
-        TableModel model;
-        model = (TableModel) e.getSource();
-        Object response = model.getValueAt(row, column);
-        Xml x = list.getXmls().get(row);
-        x.getStatus().setActive(Boolean.valueOf(response.toString()));
-        list.updateFile(row, x);
-        String status = x.getStatus().getActive() ? "Activado" : "Desactivadado";
-        JOptionPane.showMessageDialog(TablaComponentes,  "Componente "+status);
-//        ...// Do something with the data...
+            TableModel model;
+            model = (TableModel) e.getSource();
+            Object response = model.getValueAt(row, column);
+            Xml x = list.getXmls().get(row);
+            x.getStatus().setActive(Boolean.valueOf(response.toString()));
+            list.updateFile(row, x);
+            String status = x.getStatus().getActive() ? "Activado" : "Desactivadado";
+            JOptionPane.showMessageDialog(TablaComponentes, "Componente " + status);
+        }
+
     }
-   
+    
+    public void showComponenInformation() {
+        int selectedRow = TablaComponentes.getSelectedRow();
 
+        String t = "Nombre: " + list.getXmls().get(selectedRow).getAutor().getNombre() + "\n"
+                + "Descripción: " + list.getXmls().get(selectedRow).getAutor().getDescripcion() + "\n"
+                + "Versión: " + list.getXmls().get(selectedRow).getAutor().getVersion() + "\n"
+                + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
+        TextInformacion.setText(t);
+    }
+    
+    public boolean showModal(String message){
+        int answer = JOptionPane.showConfirmDialog(TablaComponentes, message);
+        return answer == JOptionPane.YES_OPTION;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -262,4 +293,3 @@ public class ListaComponentes extends javax.swing.JDialog implements  TableModel
     // End of variables declaration//GEN-END:variables
 
 }
-

@@ -97,8 +97,8 @@ public class Core
         menubar.add(menu);
         JMenuItem addComponente = new JMenuItem("Agregar Componente");
         menu.add(addComponente);
-        JMenuItem deleteComponentes = new JMenuItem("Eliminar Componente");
-        menu.add(deleteComponentes);
+//        JMenuItem deleteComponentes = new JMenuItem("Eliminar Componente");
+//        menu.add(deleteComponentes);
 
         JMenu componente = new JMenu("Componentes");
         menubar.add(componente);
