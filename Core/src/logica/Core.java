@@ -50,11 +50,9 @@ public class Core
     private DefaultSingleCDockable lectorSeleccionDockable;
     private CGrid layout;
     public CargarArchivoArbol cargador_de_archivo;
-     
-    public CControl control;
-    
 
-        
+    public CControl control;
+
     public static void main(String[] args)
             throws InstantiationException, IllegalAccessException, ClassNotFoundException, UnsupportedLookAndFeelException {
         DockController.disableCoreWarning();
@@ -85,30 +83,46 @@ public class Core
     public Core()
             throws InstantiationException, IllegalAccessException {
         setTitle("Interfaz - Integradora");
-        
-        this.control= new CControl(this);
+
+        this.control = new CControl(this);
         this.control.setTheme("eclipse");
         add(this.control.getContentArea());
         /*
-         Agregar Menu
+         Se define la barra de menu
          */
         JMenuBar menubar = new JMenuBar();
-        JMenu menu = new JMenu("Archivo");
-        menubar.add(menu);
-        JMenuItem addComponente = new JMenuItem("Agregar Componente");
-        menu.add(addComponente);
-//        JMenuItem deleteComponentes = new JMenuItem("Eliminar Componente");
-//        menu.add(deleteComponentes);
-
+        /*
+            Se agrega las opciones del menu
+         */
+        JMenu archivo = new JMenu("Archivo");
         JMenu componente = new JMenu("Componentes");
+        JMenu ayuda = new JMenu("Ayuda");
+
+        menubar.add(ayuda);
+        menubar.add(archivo);
         menubar.add(componente);
-
-        JMenu help = new JMenu("Ayuda");
-        menubar.add(help);
+        /*
+            Se agrega el item "Agregar componente" a la opción archivo
+         */
+        JMenuItem addComponente = new JMenuItem("Agregar Componente");
+        archivo.add(addComponente);
+        /*
+            Se agrega el item "Lista de componentes" a la opción componentes
+         */
+        JMenuItem lista = new JMenuItem("Lista de Componentes");
+        componente.add(lista);
+        /*
+            Se agrega el item "Acerca de" a la opción ayuda
+         */
         JMenuItem acercade = new JMenuItem("Acerca de");
-        help.add(acercade);
-
+        ayuda.add(acercade);
+        /*
+            Se establece menubar como el menu
+         */
         setJMenuBar(menubar);
+        /*
+            Se agregan los ActionListener a las opciones
+         */
         addComponente.addActionListener(new ActionListener() {
             private int count = 0;
 
@@ -119,10 +133,7 @@ public class Core
 
         });
 
-        JMenuItem Lista = new JMenuItem("Lista de Componentes");
-        componente.add(Lista);
-
-        Lista.addActionListener(new ActionListener() {
+        lista.addActionListener(new ActionListener() {
             private int count = 0;
 
             @Override
@@ -205,9 +216,9 @@ public class Core
             }
         });
         this.layout.add(0.0D, 0.0D, 30.0D, 100.0D, new CDockable[]{listDockable});
-        
+
         control.getContentArea().deploy(this.layout);
-        /** 
+        /**
          * * CARGAR EN CODE **
          */
     }
@@ -216,12 +227,14 @@ public class Core
         return tree;
     }
 
+    /*
+       Este metodo permite hacer visible la pestaña del lector de archivos
+    */
     public void lectorVisible() {
-        // this.lectorSeleccionDockable.setVisible(true);
         layout.select(30, 0, 70, 100, lectorSeleccionDockable);
         control.getContentArea().deploy(layout);
     }
-    
+
     public void setTree(JTree tree) {
         this.tree = tree;
     }
