@@ -167,13 +167,13 @@ public class LectorArchivo extends JPanel implements ActionListener {
             area.setText("precionar aceptar");
             if (xml != null) {
                 WriteComponenXml write_xml = new WriteComponenXml();
-                OSValidator os = new OSValidator();
-                String path = "";
-                if (os.getOS().equals("win")) {
-                    path = "C:\\Interfaz\\recursos";
-                } else {
-                    path = "/home/dark/proyectos/temporal";
-                }
+//                OSValidator os = new OSValidator();
+                String path = "../../temporal/";
+//                if (os.getOS().equals("win")) {
+//                    path = "/temporal/";
+//                } else {
+//                    path = "/temporal/";
+//                }
                 ZipUtils.extract(file_zip,new File(path));
                 write_xml.writeFile("src/configuracion/xml_configuracion.xml", xml);
             } else {

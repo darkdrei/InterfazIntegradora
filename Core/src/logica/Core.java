@@ -154,7 +154,7 @@ public class Core
          */
         /*                  CODIGFO DE CARGADO DE ARCHIVO                        */
         lector_archivo = new LectorArchivo();
-        this.lectorSeleccionDockable = new DefaultSingleCDockable("selection", "Selection");
+        this.lectorSeleccionDockable = new DefaultSingleCDockable("selection 1", "Selection 1");
         this.lectorSeleccionDockable.setLayout(new BorderLayout());
         this.lectorSeleccionDockable.add(lector_archivo, BorderLayout.CENTER);
         this.lectorSeleccionDockable.setCloseable(true);
@@ -164,7 +164,7 @@ public class Core
          * **********************************************************************
          */
         this.currentSelection = new BasePanel();
-        DefaultSingleCDockable currentSelectionDockable = new DefaultSingleCDockable("selection", "Seleccion", new CAction[0]);
+        DefaultSingleCDockable currentSelectionDockable = new DefaultSingleCDockable("selection 2", "Seleccion 2", new CAction[0]);
         currentSelectionDockable.setLayout(new BorderLayout());
         currentSelectionDockable.add(this.currentSelection, "Center");
         currentSelectionDockable.setCloseable(false);

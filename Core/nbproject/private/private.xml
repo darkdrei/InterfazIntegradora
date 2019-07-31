@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/logica/Core.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>107</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/WriteComponenXml.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/ListaComponentes.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ListComponenXml.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/LectorXml.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/BasePanel.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/LectorArchivo.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ValidXml.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/Extension.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/Core.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/Zip.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/NewClass.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ComponenXml.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CargarArchivoArbol.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/data/ZipUtils.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CopyCodeAction.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/TableButtonListener.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/configuracion/xml_configuracion.xml</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/xml_configuracion.xml</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/WriteComponenXml.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CoreSet.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/ListaComponentes.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ListComponenXml.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/Xml.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/ButtonColumn.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/Core.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ValidXml.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/ComponenXml.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/TableButton.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/XmlInterface.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CargarArchivoArbol.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/DosVentanas.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CopyCodeAction.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/CommonGui.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/Ventana3.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/logica/TableButtonListener.java</file>
+            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/Ventana.java</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/configuracion/xml_integracion.xml</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/practicavesctor.java</file>
-            <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/configuracion/xml_configuracion.xml</file>
             <file>file:/home/balzac/Documentos/InterfazIntegradora/Core/src/core/OperacionFIle.java</file>
         </group>
     </open-files>

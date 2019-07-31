@@ -123,12 +123,12 @@ public class Zip implements Lector {
     @Override
     public File[] getFiles(File f) {
         OSValidator os = new OSValidator();
-        String path = "";
-        if (os.getOS().equals("win")) {
-            path = "C://Interfaz//temporal";
-        } else {
-            path = "/home/dark/proyectos/aaaaa";
-        }
+        String path = "../../temporal/";
+//        if (os.getOS().equals("win")) {
+//            path = "C://Interfaz//";
+//        } else {
+//            path = "/home/dark/proyectos/aaaaa";
+//        }
         File folder = new File(path);
         System.out.println("Esto es lo q hay ---> " + folder.exists());
         if (!folder.exists()) {

@@ -110,21 +110,44 @@
   </pluguin>
   <pluguin>
     <autor>
-      <nombre>Test 8</nombre>
-      <descripcion>Eso es lo q hay</descripcion>
-      <version>4.1</version>
+      <nombre />
+      <descripcion />
+      <version />
     </autor>
     <cuerpo>
-      <tipo columnas="4" tipodatocolumna="fdfdfdfd,fdfdfdfdf,fdfdfdf,fdfdfd">
+      <tipo columnas="0" tipodatocolumna="null,null,null,null,null,null,null,null,null,null">
         <claseprincipal />
       </tipo>
-      <parametro>
-        <String />
-        <float />
-        <int />
-      </parametro>
+      <parametro />
+    </cuerpo>
+    <status active="true" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion />
+      <version />
+    </autor>
+    <cuerpo>
+      <tipo columnas="0" tipodatocolumna="null,null,null,null,null,null,null,null,null,null">
+        <claseprincipal />
+      </tipo>
+      <parametro />
+    </cuerpo>
+    <status active="true" />
+  </pluguin>
+  <pluguin>
+    <autor>
+      <nombre />
+      <descripcion />
+      <version />
+    </autor>
+    <cuerpo>
+      <tipo columnas="0" tipodatocolumna="null,null,null,null,null,null,null,null,null,null">
+        <claseprincipal />
+      </tipo>
+      <parametro />
     </cuerpo>
     <status active="true" />
   </pluguin>
 </listado>
-    
