@@ -99,6 +99,17 @@ public class Core
         menu.add(addComponente);
         JMenuItem deleteComponentes = new JMenuItem("Eliminar Componente");
         menu.add(deleteComponentes);
+        
+        deleteComponentes.addActionListener(new ActionListener() {
+            private int count = 0;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog eliminar = new EliminarComponente(Core.this, true);
+                eliminar.setVisible(true);
+            }
+
+        });
 
         JMenu componente = new JMenu("Componentes");
         menubar.add(componente);

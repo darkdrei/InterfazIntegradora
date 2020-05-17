@@ -16,3 +16,5 @@ hs_err_pid*
 !Core/src/recursos/*
 /Core/nbproject/private/
 /Core/build/
+/Core/nbproject/
+
