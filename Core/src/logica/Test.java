@@ -20,8 +20,10 @@ public class Test {
         // TODO code application logic here
         Zip z = new Zip();
         //Object[] r = z.validarArchivoGrup(new File("/home/dark/Documentos/Elion_unificados.zip"));
-        Object[] r = z.validarArchivoGrup(new File("/home/dark/proyectos/Modulos_test/Modulo1.zip"));
-        System.out.println(r[0]+"    ");
+        //Object[] r = z.validarArchivoGrup(new File("/home/dark/proyectos/Modulos_test/Modulo1.zip"));
+        
+        File file = new File("/home/dark/Documents/Tesis-Plinio/InterfazIntegradora/Core/src/ima/delete.png");
+        System.out.println(file.exists()+"    ");
         
     }
 
