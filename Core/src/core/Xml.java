@@ -15,13 +15,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Xml implements Cloneable{
     private Autor autor;
     private Cuerpo cuerpo;
+    private Ruta ruta;   
     private static final AtomicInteger count = new AtomicInteger(0);
     private final int id;
     private Status status;
     
-    public Xml(Autor autor, Cuerpo cuerpo, Status status) {
+    public Xml(Autor autor, Cuerpo cuerpo, Ruta ruta, Status status) {
         this.autor = autor;
         this.cuerpo = cuerpo;
+        this.ruta = ruta;
         this.id = count.incrementAndGet();
         this.status =  status;
     }
@@ -29,10 +31,10 @@ public class Xml implements Cloneable{
     public Xml() {
         this.autor = new Autor();
         this.cuerpo = new Cuerpo();
+        this.ruta = new Ruta();
         this.id = count.incrementAndGet();
         this.status = new Status(true);
     }
-
 
     public Status getStatus() {
         return status;
@@ -61,6 +63,14 @@ public class Xml implements Cloneable{
     public void setCuerpo(Cuerpo cuerpo) {
         this.cuerpo = cuerpo;
     }
+
+    public Ruta getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(Ruta ruta) {
+        this.ruta = ruta;
+    }
     
     public ArrayList<String> getParametros(){
         return this.getCuerpo().getParametros();
@@ -71,6 +81,43 @@ public class Xml implements Cloneable{
 
     public void setStatus(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public class Ruta{
+        private String nombre;
+        private String direccion;
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getDireccion() {
+            return direccion;
+        }
+
+        public void setDireccion(String direccion) {
+            this.direccion = direccion;
+        }
+
+        public Ruta(String nombre, String direccion) {
+            this.nombre = nombre;
+            this.direccion = direccion;
+        }
+
+        public Ruta() {
+            this.nombre = "";
+            this.direccion = "";
+        }
+
+        @Override
+        public String toString() {
+            return "Ruta{" + "nombre=" + nombre + ", direccion=" + direccion + '}';
+        }
+        
     }
     
     public class Autor{
@@ -112,8 +159,7 @@ public class Xml implements Cloneable{
             this.nombre = "";
             this.descripcion = "";
             this.version = "";
-        }
-        
+        }        
 
         @Override
         public String toString() {
@@ -217,6 +263,7 @@ public class Xml implements Cloneable{
         info+="\n ------ Autor ------";
         info+="\nNombre  : "+this.getAutor().getNombre();
         info+="\nVersion : "+this.getAutor().getVersion();
+        info+="\nRuta : "+this.getAutor().getVersion();
         info+="\nDescripcion : ";
         info+="\n"+this.getAutor().getDescripcion();
         info+="\n";
