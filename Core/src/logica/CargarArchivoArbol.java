@@ -135,6 +135,7 @@ public class CargarArchivoArbol extends CButton {
                 leerDirectorio(archivos, ruta,carpeta,0);
             }
         }
+        return;
     }
 
     public DefaultMutableTreeNode getCarpetaRaiz() {
