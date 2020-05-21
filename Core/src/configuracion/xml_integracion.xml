@@ -16,4 +16,8 @@
 			<int></int>
 		</parametro>
 	</cuerpo>
+        <ruta>
+            <nombre>curso</nombre>
+            <direccion>E:\VIRGILIO\ESTUDIO\CURSOS\UDEMY\Node - De cero a experto\02-FUNDAMENTOS</direccion>
+        </ruta>
 </pluguin>
