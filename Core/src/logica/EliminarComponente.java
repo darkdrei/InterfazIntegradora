@@ -244,6 +244,7 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
     }// </editor-fold>//GEN-END:initComponents
 
     
+    
     private void TablaComponentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaComponentesMouseClicked
         // TODO add your handling code here:
         int selectedRow = TablaComponentes.getSelectedRow();
@@ -254,16 +255,33 @@ public class EliminarComponente extends javax.swing.JDialog implements ActionLis
                 + "Parametros: " + list.getXmls().get(selectedRow).getParametros().toString();
         TextInformacion.setText(t);
         
+        Object[] opciones = {"NO", "YES, PLEASE"};
+        
         if(selectedColum == 4){
             Object value = TablaComponentes.getValueAt(selectedRow, selectedColum);
             if(value instanceof JButton){
                 ((JButton)value).doClick();
-                JOptionPane.showMessageDialog(this, "Eso es lo q hay");
+                //int op_eliminar = JOptionPane.showConfirmDialog(this,"seguro que desea eliminar?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+                int op_eliminar;
+                op_eliminar = JOptionPane.showOptionDialog(null, 
+                        "¿está seguro que desea eliminar el componente "+list.getXmls().get(selectedRow).getAutor().getNombre()+"?",
+                        "Eliminacion de componente",
+                        JOptionPane.YES_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, //do not use a custom Icon
+                        opciones, //the titles of buttons
+                        opciones[0]); //default button title
+                if (JOptionPane.OK_OPTION != op_eliminar){
+                    System.out.println("confirmado");
+                    System.out.println("eliminando ---> " + list.getXmls().get(selectedRow));
+                    list.removeXml(list.getXmls().get(selectedRow));
+                    TextInformacion.setText("");
+                    listaDeComponentes();
+                }else{
+                    System.out.println("cncelado");
+                }
             }
-        }
-        
-        
-        
+        }        
     }//GEN-LAST:event_TablaComponentesMouseClicked
 
     /**
